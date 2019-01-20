@@ -25,11 +25,15 @@ This semester project aims to be a part of an attempt to create a scalable quant
 
 \section{Kinds of resonators}
 \label{sec:kinds_resonators}
-Required frequency range limits our selection to the following types of resonators: helical \cite{Gulde2017} or, for higher frequencies, coaxial, RLC \cite{Gandolfi2010}, and crystal oscillators.
+Required frequency range limits our selection to the following types of resonators: helical \cite{Gulde2017} or, for higher frequencies, coaxial, RLC \cite{Gandolfi2010}, and crystal oscillators. Multiple available solutions require us to do an analysis for a reasoned choice.
 \subsection{Helical}
+[HELICAL PICTURE HERE]
+
 Helical resonators are the most widely used type of resonators.
 \subsection{RLC}
-RLC resonators provide 
+[RLC PICTURE HERE]
+
+RLC amplifiers are a convenient choice for space-bounded environments, such as cryostats. Typical implementation pumps energy between two reactive components --- inductor and capacitor. Assembly of RLC circuit is easier than of helical resonator since physical placement of lumped parts does not influence the resulting quality factor. But it also means that quality of these components is a major factor for successful creation. Given that units' datasheets rarely provide values for cryogenic setup it takes a lot of trial and error to find the right ones.
 \subsection{Crystal}
 Unlike helical and RLC resonators crystal oscillators do not store energy just in electric field. This type utilizes piezoelectric effect to transform applied harmonic voltage into surface mechanical modes and vice versa.
 
