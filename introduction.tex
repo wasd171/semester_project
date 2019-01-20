@@ -18,7 +18,7 @@ This semester project aims to be a part of an attempt to create a scalable quant
 \begin{itemize}
 	\item using subtractive laser writing to manufacture wafers eliminates misalignment effects
 	\item double junction ion trap was designed for parallel operations, Decoherence Free Subspace (DFS) ion transport across the junctions, and manipulation of long chains of ions
-	\item integrated laser delivery through optical lensed fibers eliminates the need for bulky optics and custom objectives which do not provide an easy scalability
+	\item integrated laser delivery through optical lensed fibers eliminates the need for bulky optics and custom objectives which limit scalability
 \end{itemize}
 
 [TRAP PICTURE HERE]
@@ -27,5 +27,15 @@ This semester project aims to be a part of an attempt to create a scalable quant
 \label{sec:kinds_resonators}
 Required frequency range limits our selection to the following types of resonators: helical \cite{Gulde2017} or, for higher frequencies, coaxial, RLC \cite{Gandolfi2010}, and crystal oscillators.
 \subsection{Helical}
+Helical resonators are the most widely used type of resonators.
 \subsection{RLC}
+RLC resonators provide 
 \subsection{Crystal}
+Unlike helical and RLC resonators crystal oscillators do not store energy just in electric field. This type utilizes piezoelectric effect to transform applied harmonic voltage into surface mechanical modes and vice versa.
+
+Narrow excitation spectrum is provided by physical dimensions imposing hard constrains on vibrational oscillations and could have made such device an ideal filtering solution for ions traps. Unfortunately, there are some major downsides that seriously limit its applicability:
+\begin{itemize}
+	\item after fabrication resonant frequency can not be widely tuned
+	\item limited stability of the crystal does not allow high voltages
+\end{itemize}
+\subsection{Choosing the right one}
