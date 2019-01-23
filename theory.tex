@@ -15,9 +15,9 @@ A well-known approach \cite{Macalpine2000} for describing helical resonators was
 While describing essential properties of an unloaded helical quarter-wave resonator this paper \cite{Macalpine2000} also predicts shift of resonant frequency if an external load is connected. In order to define new frequency one can make use of telegraph equations \cite{Rohde2009} by effectively treating the ion trap as a capacitor.
 
 \subsection{Siverns et al.}
-This model \cite{Siverns2012} takes one step further to development of an amplifier specifically for the needs of quantum computing. Authors propose to take a look at the joint resonator--ion trap system as a whole. It allows to calculate proper resonant frequency, accounting for resistive losses.
+Unfortunately modeling ion trap as a pure capacitive load is not always accurate. Introducing resistive losses imposes additional shift of resonant frequency which pushes deviation from self-resonant one even further. It is possible to tune strength of inductive coupling between antenna and main coil to compensate this shift while losing in efficiency.
 
+These limitations of Macalpine's \& Schildknecht's \cite{Macalpine2000} model were overcome in a newer paper \cite{Siverns2012} which takes development of an amplifier specifically for the needs of quantum computing one step further. By taking a look at the joint resonator + ion trap system as a whole it aims to predict effective $Q$ and frequency. This tooling ensures that it's possible to find optimal parameters for given experimental constraints.
 
 \section{Comparison}
-
-Macalpine uses a generic model for coaxial / helical resonator, later improving it by using telegrapher's equations to estimate resonant frequency shift. Hensinger takes a less generic approach, taking some resonator-only parameters from Macalpine but investigating helical resonator + ion trap system
+Macalpine's and Schildknecht's \cite{Macalpine2000} model gives insides for designing a helical quarter-wave resonator with a given self-resonant frequency. However major shifts from it can be expected when connecting ion trap. Siverns' et al. approach \cite{Siverns2012} investigates connections between various parameters in the total circuit. As a result one could create a resonator which implements a transfer function closer to a desired one. Considering these benefits a newer model \cite{Siverns2012} was selected.
