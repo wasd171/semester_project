@@ -2,40 +2,40 @@
 \newcommand{\package}{\emph}
 
 \chapter{Introduction}
-Quantum computing is an exciting and rapidly evolving field of a modern science. One of the popular implementations of a quantum computer is based on an ability to control and measure systems of trapped ions. Those ions are typically confined in Paul \cite{Paul1990} traps by applying static and high voltage RF signals to trap's electrodes, which on average generates a corresponding stabilizing electric potential.
+Quantum computing is an exciting and rapidly evolving field of modern science. One of the most promising implementations of a quantum computer is based on the ability to control and measure systems of trapped ions. Those ions are typically confined in Paul (RF) \cite{Paul1990} traps by applying static and oscillating RF signals to the trap electrodes, which on average generates a confining electric potential.
 \section{Why do we need resonators?}
 \label{sec:why_resonators}
-One could potentially couple a radio frequency source directly to an ions' trap. However it imposes the following challenges:
+One could potentially couple a radio frequency source directly to an ions' trap. However this creates the following challenges:
 \begin{itemize}
 	\item noise from a source may contribute to heating of trapped ions \cite{Turchette2000}
-	\item in order to maintain efficient cryostat cooling all internal connections must be manufactured out of materials with low thermal conductivity. Unfortunately following the Wiedemann-Franz law \cite{Franz1853} it leads to low electrical conductivity thus resulting in high dissipation of power
+	\item in order to maintain efficient cryostat cooling amount of generated heat within it should be minimized. In order to stabilize ions in the ion trap 	confining RF signal must have a reasonably high voltage amplitude. An RF resonator close to the signal consumption area allows to reduce the length of an actively heated (with accordance to the Joule–Lenz law \cite{Prokhorov1972}) high voltage wire.
 	\item impedance mismatch between source and trap leads to an additional dissipation of RF power
 \end{itemize}
-These issues can be avoided by placing an amplifier close to Paul trap, which would filter incoming signal and output it with voltage suitable for operating the trap. Two available options are active and passive amplifiers. Active amplifiers perform better in terms of voltage gain at room temperatures, but cryogenic temperatures do not allow underlying semiconductor technology to function, which leaves us with passive amplifiers (resonators).
-\section{Context of a project}
+These issues can be avoided by placing an amplifier close to the Paul trap, which would filter the incoming signal and output it with a voltage suitable for operating the trap. There are two available options: active and passive amplifiers. Active amplifiers perform better in terms of voltage gain at room temperatures, but cryogenic temperatures do not allow the underlying semiconductor technology to function, which leaves us with passive amplifiers (resonators).
+\section{Context of this project}
 \label{sec:context}
 This semester project aims to be a part of an attempt to create a scalable quantum computing architecture by Chiara Decaroli. It provides the following benefits compared to existing solutions:
 \begin{itemize}
-	\item using subtractive laser writing to manufacture wafers eliminates misalignment effects
-	\item double junction ion trap was designed for parallel operations, Decoherence Free Subspace (DFS) ion transport across the junctions, and manipulation of long chains of ions
-	\item integrated laser delivery through optical lensed fibers eliminates the need for bulky optics and custom objectives which limit scalability
+	\item using subtractive laser writing to manufacture wafers eliminates misalignment effects by allowing a ``self assembly'' of different wafers
+	\item double junction ion trap designed for parallel operations, Decoherence Free Subspace (DFS) ion transport across the junctions, and manipulation of long chains of ions
+	\item potential integrated laser delivery through optical lensed fibers eliminates the need for bulky optics and custom objectives which limit scalability
 \end{itemize}
 
 [TRAP PICTURE HERE]
 
 \section{Kinds of resonators}
 \label{sec:kinds_resonators}
-Required frequency range limits our selection to the following types of resonators: helical \cite{Gulde2017} or, for higher frequencies, coaxial, RLC \cite{Gandolfi2010}, and crystal oscillators. Multiple available solutions require us to do an analysis for a reasoned choice.
+The required frequency range limits our selection to the following types of resonators: helical \cite{Gulde2017} or, for higher frequencies, coaxial, RLC \cite{Gandolfi2010}, and crystal oscillators. Multiple available solutions require us to do an analysis for a reasoned choice.
 \subsection{Helical}
 [HELICAL PICTURE HERE]
 
-Helical resonators are commonly selected to be coupled with ion traps due to their high quality factors and ability to operate on high frequencies. It is a perfect option for ion traps operated at room temperatures, since in absence of space constraints they are able to provide $Q$ values of a couple thousands. However in order to achieve those fabrication process needs to be quite precise to avoid reflections of traveling waves which negatively influences overall gain.
+Helical resonators are commonly selected to be coupled with ion traps due to their high quality factors and ability to operate on high frequencies. It is a perfect option for ion traps operated at room temperatures, since in absence of space constraints they are able to provide $Q$ values of a couple thousands. However in order to achieve those $Q$, the fabrication process needs to be quite precise to avoid reflections of traveling waves which negatively influence the overall gain.
 \subsection{RLC}
 [RLC PICTURE HERE]
 
-RLC amplifiers are a convenient choice for space-bounded environments, such as cryostats. Typical implementation pumps energy between two reactive components --- inductor and capacitor. Assembly of RLC circuit is easier than of helical resonator since physical placement of lumped parts does not influence the resulting quality factor. But it also means that quality of these components is a major factor for successful creation. Given that units' data sheets rarely provide values for cryogenic setup it takes a lot of trial and error to find the right ones.
+RLC amplifiers are a convenient choice for space-bounded environments, such as cryostats. Typical implementation pumps energy between two reactive components --- inductor and capacitor. Assembly of RLC circuit is easier than of helical resonator since the physical placement of lumped parts does not influence the resulting quality factor. But it also means that the quality of these components is a major factor for successful creation. Given that units' data sheets rarely provide values for cryogenic setup it takes a lot of trial and error to find the right ones.
 \subsection{Crystal}
-Unlike helical and RLC resonators crystal oscillators do not store energy just in electric field. This type utilizes piezoelectric effect to transform applied harmonic voltage into surface mechanical modes and vice versa.
+Unlike helical and RLC resonators, the crystal oscillators do not store energy just in the electric field. This type or resonator utilizes piezoelectric effect to transform applied harmonic voltage into surface mechanical modes and vice versa.
 
 Narrow excitation spectrum is provided by physical dimensions imposing hard constraints on vibrational oscillations and could have made such device an ideal filtering solution for ions traps. Unfortunately, there are some major downsides that seriously limit its applicability:
 \begin{itemize}
@@ -43,4 +43,4 @@ Narrow excitation spectrum is provided by physical dimensions imposing hard cons
 	\item limited stability of the crystal does not allow high voltages
 \end{itemize}
 \subsection{Choosing the right one}
-In our setup combination of high voltage and frequency values with reasonable constraints on available space makes helical resonator the optimal option. However, difficulties of assembly do not make it a perfect solution in terms of scalability --- for a production-grade setup RLC amplifier might be preferred.
+In our setup, the combination of high voltage and frequency values with our constraints on available space makes helical resonator the optimal option. However, difficulties of assembly do not make it a perfect solution in terms of scalability --- for a production-grade setup RLC amplifier might be preferred.
