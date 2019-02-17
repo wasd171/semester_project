@@ -1,0 +1,146 @@
+\chapter{Mathematica code for Macalpine's model}
+This is a relevant part of the script supporting calculations in \cite{Leupold2015}.
+\begin{mmaCell}[moredefined={c, AMU, h, kB, grav, a0, me, ee, eV, Eh, m, mm, cm, nm, km, in, ft, mi, mK, nK, pK, T, mT, G, mG, sec, s, ms, ns, A, mA, nA, W, mW, nW, Hz, kHz, MHz, GHz, nF, pF, nH, pH}]{Input}
+(* Physical Constants and Units *)
+\mmaDef{\(\mu\)0} = 4*\mmaDef{\(\pi\)}*\mmaSup{10}{-7};
+\mmaDef{\(\epsilon\)0} = 8.854187817*\mmaSup{10}{-12};
+c = 299792458;
+AMU = 1.6605402*\mmaSup{10}{-27};
+h = 6.6260755*\mmaSup{10}{-34};
+\mmaDef{\(\hbar\)} = \mmaFrac{h}{2\mmaDef{\(\pi\)}};
+\mmaDef{\(\mu\)B} = 9.2740154*\mmaSup{10}{-24};
+kB = 1.380658*\mmaSup{10}{-23};
+grav = 9.8;
+a0 = 0.5291772108*\mmaSup{10}{-10};
+me = 9.1093826*\mmaSup{10}{-31};
+ee = 1.60217733*\mmaSup{10}{-19}; eV = ee;
+Eh = \mmaFrac{\mmaSup{\mmaDef{\(\hbar\)}}{2}}{me \mmaSup{a0}{2}};
+m=1; \mmaDef{\(\mu\)m}=\mmaSup{10}{-6}m; mm=\mmaSup{10}{-3}m; cm=\mmaSup{10}{-2}m; nm=\mmaSup{10}{-9}m; km=\mmaSup{10}{3}m;
+in=2.54cm; ft=12in; mi=5280*ft;
+K=1; mK=\mmaSup{10}{-3}K; \mmaDef{\(\mu\)K}=\mmaSup{10}{-6}; nK=\mmaSup{10}{-9}K; pK=\mmaSup{10}{-12};
+T=1; mT=\mmaSup{10}{-3}K; G=\mmaSup{10}{-4}; mG=\mmaSup{10}{-3}G; \mmaDef{\(\mu\)G}=\mmaSup{10}{-6};
+sec=1; s=1; ms=\mmaSup{10.0}{-3}s; \mmaDef{\(\mu\)s}=\mmaSup{10}{-6}s; ns=\mmaSup{10}{-9}s;
+\mmaDef{\(\Omega\)}=1; \mmaDef{m\(\Omega\)}=\mmaSup{10}{-3}; \mmaDef{k\(\Omega\)}=\mmaSup{10}{3}; \mmaDef{M\(\Omega\)}=\mmaSup{10}{6};
+A=1; mA=\mmaSup{10}{-3}A; \mmaDef{\(\mu\)A}=\mmaSup{10}{-6}; nA=\mmaSup{10}{-9};
+W=1; mW=\mmaSup{10}{-3}; \mmaDef{\(\mu\)W}=\mmaSup{10}{-6}; nW=\mmaSup{10}{-9};
+Hz=1; kHz=\mmaSup{10}{3}; MHz=\mmaSup{10}{6}; GHz=\mmaSup{10}{9};
+nF=\mmaSup{10}{-9}; pF=\mmaSup{10}{-12};
+nH=\mmaSup{10}{-9}; pH=\mmaSup{10}{-12};
+\end{mmaCell}
+
+\begin{mmaCell}[moredefined={Ds, d, b, Nt, d0, Leff, Ceff, Z0, v, Q, omega},morepattern={Bs_, Bs, f0_, f0, Cl_, Cl},morelocal={w}]{Input}
+(* Calculations for Cu resonator *)
+Ds[Bs_]:= 0.75Bs; (*diameter of shield*)
+d[Bs_]:= 0.55Ds[Bs]; (*diameter of helix*)
+b[Bs_]:= 1.5d[Bs]; (*length of helix*)
+
+Nt[Bs_,f0_]:= \mmaFrac{48.26*\mmaSup{10}{6}}{f0 Ds[Bs]}; (*number of turns*)
+
+d0[Bs_,f0_]:= 0.5\mmaFrac{b[Bs]}{Nt[Bs, f0]}; (*diameter of wire*)
+
+\mmaDef{\(\tau\)}[Bs_,f0_]:= \mmaFrac{b[Bs]}{Nt[Bs, f0]}; (*pitch*)
+
+(*effective inductance*)
+Leff[Bs_,f0_]:= 9.84*\mmaSup{10}{-7}*\mmaSup{(\mmaFrac{Nt[Bs, f0] d[Bs]}{b[Bs]})}{2}*(1-\mmaSup{(\mmaFrac{d[Bs]}{Ds[Bs]})}{2});
+Ceff[Bs_]:= \mmaFrac{2.95*\mmaSup{10}{-11}}{Log[10,\mmaFrac{Ds[Bs]}{d[Bs]}]}; (*effective capacitance*)
+  
+
+Z0[Bs_,f0_]:= \mmaSqrt{\mmaFrac{Leff[Bs,f0]}{Ceff[Bs]}}; (*characteristic impedance*)
+
+v[Bs_,f0_]:= \mmaFrac{1}{\mmaSqrt{Leff[Bs,f0] Ceff[Bs]}}; (*velocity*)
+  
+\mmaDef{\(\lambda\)}[Bs_,f0_]:= \mmaFrac{v[Bs,f0]}{f0}; (*wavelength*)
+
+Q[Bs_,f0_]:= 1.97 Ds[Bs] \mmaSqrt{f0};
+
+omega[Bs_,f0_,Cl_]:= Module[\{w\},
+  w = \mmaUnd{\(\nu\)}/.FindRoot[\mmaFrac{1}{2\mmaDef{\(\pi\)}*Z0[Bs,f0]*Cl*\mmaFnc{\(\nu\)}}==Tan[\mmaFrac{2\mmaDef{\(\pi\)}\mmaFnc{\(\nu\)} b[Bs] }{v[Bs,f0]}],\{\mmaFnc{\(\nu\)},f0\}][[1]];
+  Return@w;
+]
+\end{mmaCell}
+
+\begin{mmaCell}[moredefined={mm, MHz, pF, Ds, d, b, Nt, d0, Z0, Leff, nH, Ceff, v, m, s, Q, omega}]{Input}
+Bs = 60mm; (*length of shield*)
+(* This frequency needs to be varied 
+until loaded frequency is close to target frequency*)
+f0 = 97.023MHz; (*center frequency*)
+Cl = 10pF; (*trap capacitance*)
+  
+Print["Bs = ",Bs/mm," mm (length of shield)"]
+Print["Ds = ",Ds[Bs]/mm," mm (diameter of shield)"]
+Print["d = ",d[Bs]/mm," mm (diameter of helix)"]
+Print["b = ",b[Bs]/mm," mm (length of helix)"]
+Print["Nt = ",Nt[Bs,f0]," (number of turns)"]
+Print["d0 = ",d0[Bs,f0]/mm," mm (diameter of wire)"]
+Print["\(\tau\) = ",\mmaDef{\(\tau\)}[Bs,f0]/mm," mm (pitch of helix)"]
+Print["Z0 = ",Z0[Bs,f0]/\mmaDef{\(\omega\)}," \(\omega\) (characteristic impedance)"]
+Print["Leff = ",Leff[Bs,f0]/(nH/mm)," nH/mm (effective inductance)"]
+Print["Ceff = ",Ceff[Bs]/(pF/mm)," pF/mm (effective capacitance)"]
+Print["v = ",v[Bs,f0]/(m/s)," m/s (velocity)"]
+Print["\(\lambda\) = ",\mmaDef{\(\lambda\)}[Bs,f0]/mm," mm (wavelength)"]
+Print["f0 = ",f0/MHz," MHz (unloaded frequency)"]
+Print["Q = ",Q[Bs,f0]," (quality factor)"]
+Print["\(\nu\)0 = ",omega[Bs,f0,Cl]/MHz," MHz (loaded frequency)"]
+  
+Clear[Bs,f0,Cl];
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Bs = 60 mm (length of shield)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Ds = 45. mm (diameter of shield)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+d = 24.75 mm (diameter of helix)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+b = 37.125 mm (length of helix)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Nt = 11.0535 (number of turns)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+d0 = 1.67933 mm (diameter of wire)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+\(\tau\) = 3.35866 mm (pitch of helix)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Z0 = 572.731 \(\Omega\) (characteristic impedance)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Leff = 37.2698 nH/mm (effective inductance)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Ceff = 0.11362 pF/mm (effective capacitance)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+v = 1.53672*10^7 m/s (velocity)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+\(\lambda\) = 158.387 mm (wavelength)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+f0 = 97.023 MHz (unloaded frequency)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+Q = 873.205 (quality factor)
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+\(\nu\)0 = 40. MHz (loaded frequency)
+\end{mmaCell}
