@@ -1,0 +1,168 @@
+\chapter{Mathematica code for Siverns' model}
+Following calculations are heavily based on a script generously provided by James David Siverns. All variables and references correspond to \cite{Siverns2012}.
+\begin{mmaCell}[moredefined={MHz, pF, mm, m, H}]{Input}
+(* Units and constants *)
+MHz = \mmaSup{10}{6};
+pF = \mmaSup{10}{-12};
+\(\Omega\) = 1;
+mm = \mmaSup{10}{-3};
+m = 1;
+H = 1;
+\(\mu\)0 = 4\(\pi\)*\mmaSup{10}{-7};
+\end{mmaCell}
+
+\begin{mmaCell}[moredefined={Cw, pF, Rt},morepattern={Ct_, Ct}]{Input}
+(* Trap and wire values *)
+Cw = 0.00001 pF; (* Wire to trap capacitance *)
+Rt = 0.1 \(\Omega\); (* Trap resistance *)
+C\(\Sigma\)[Ct_]:= Cw + Ct; (* Sum of above *)
+\end{mmaCell}
+
+\begin{mmaCell}[moredefined={calculateQ, pF, mm, m, H, Cw, MHz, Rt},morepattern={dMillimeters_, \#, dMillimeters, Ct_, Ct},morelocal={d0,
+d, De, eN, b, Cc, KLc, KCs, Cs, LC, lc, r, Ns, ls, a, Rs, Rc, Rj, XLc, XCc, Xct, Xcw, XCs, Zcoil, ZE, Ztot, RealZ, Q, maxSize, log, Capacitance}]{Input}
+calculateQ[dMillimeters_, \mmaPat{\(\gamma\)_}]:=Module[\{
+  (* Arguments naming as in Siverns paper *)
+  d0,\mmaLoc{\(\tau\)},d,De,\mmaLoc{\(\alpha\)},\mmaLoc{\(\rho\)},eN,b,Cc,KLc,KCs,Cs,LC,\mmaLoc{\(\omega\)0},\mmaLoc{\(\delta\)},lc,r,Ns,ls,a,
+  Rs,Rc,Rj,XLc,XCc,Xct,Xcw,XCs,Zcoil,ZE,Ztot,RealZ,Q,
+  maxSize, log, \mmaLoc{\(\omega\)Res}, Capacitance
+\},
+  Capacitance = 20pF;
+  (* Switch log function for plotting *)
+  log = Print;
+  log = (#)&;
+  
+  (* Resonator parameters *)
+  (* Coil wire diameter, we take it from Macalpine *)
+  d0 = 1.95mm;
+  \mmaLoc{\(\tau\)} = 2*d0; (* Winding pitch *)
+  d = dMillimeters*mm; (* Diameter of coil *)
+  De = d/\mmaPat{\(\gamma\)}; (* Diameter of a shield *)
+  \mmaLoc{\(\alpha\)} = d/De;
+  (* Resistivity of resonator material *)
+  \mmaLoc{\(\rho\)} = 1.7*\mmaSup{10}{-8}*\mmaDef{\(\Omega\)}*m;  
+  (* Given by the 4K chamber design *)
+  maxSize = 36mm;
+  b = 56mm - De/2;
+  (* Handling case of a too large resonator *)
+  If[d>maxSize || De>maxSize || b\(\pmb{\leq}\)0, Return@0];
+  
+  log["b = ", b/mm, "mm"];
+  log["d = ", d/mm, "mm"];
+  log["D = ", De/mm, "mm"];
+  
+  eN = b/\mmaLoc{\(\tau\)};(* Number of turns in the coil *)
+  log["N = ", eN];
+  (* Coil self capacitance - equation 25 *)
+  
+  Cc = ((11.26\mmaFrac{b}{d})+8+(\mmaFrac{27}{Sqrt[\mmaFrac{b}{d}]}))d pF;
+  
+  
+  KLc = 39.37 \mmaFrac{0.025 \mmaSup{(d)}{2} (1-\mmaSup{\mmaLoc{\(\alpha\)}}{2})}{\mmaSup{(\mmaLoc{\(\tau\)})}{2}}\mmaSup{10}{-6}\mmaFrac{H}{m};
+  
+  KCs = 39.37 \mmaFrac{0.75}{Log[10,\mmaFrac{1}{\mmaLoc{\(\alpha\)}}]} \mmaFrac{pF}{m};
+  
+  (* Shield-coil capacitance - equation 26 *)
+  Cs = b KCs;
+  (* Inductance of coil inside a shield - equation 27 *)
+  LC = b KLc;
+  (* Resonant frequency - equation 21 *)
+  \mmaLoc{\(\omega\)Res}[Ct_]:= \mmaFrac{1}{Sqrt[(Cs+Ct+Cw+Cc)LC]};
+  
+  log["\(\omega\) = ", \mmaLoc{\(\omega\)Res}[Capacitance]/(2\mmaDef{\(\pi\)} MHz), "MHz"];
+  
+  \mmaLoc{\(\omega\)0}[Ct_]:= 2\mmaDef{\(\pi\)}*40 MHz; (* This is a target frequency *)
+  (* Allowing 5% accuracy for the frequency *)
+  If[
+  	\mmaFrac{Abs[\mmaLoc{\(\omega\)0}[Capacitance] - \mmaLoc{\(\omega\)Res}[Capacitance]]}{\mmaLoc{\(\omega\)0}[Capacitance]} > 0.05, 
+  	Return@0
+  ];
+  
+  \mmaLoc{\(\delta\)}[Ct_]:= Sqrt[\mmaFrac{2 \mmaLoc{\(\rho\)}}{(\mmaLoc{\(\omega\)0}[Ct] \mmaDef{\(\mu\)0} )}]; (* Skin depth *)
+  
+  (* Unwond length of the coil *)
+  lc = 2\mmaDef{\(\pi\)} Sqrt[\mmaSup{(\mmaFrac{d}{2})}{2}+\mmaSup{(\mmaFrac{\mmaLoc{\(\tau\)}}{2\mmaDef{\(\pi\)}})}{2}]\mmaFrac{b}{\mmaLoc{\(\tau\)}};
+  r = \mmaFrac{d}{2}(\mmaFrac{1}{\mmaLoc{\(\alpha\)}}-1);
+  
+  (* Number of "turns" in the currents path in the shield 
+  - equation 31 *)
+  
+  Ns = \mmaFrac{b lc}{4\mmaDef{\(\pi\)} \mmaSup{r}{2}};
+  
+  (* Distance of current path in the shield - equation 32 *)
+  ls = Ns Sqrt[\mmaSup{\mmaDef{\(\pi\)}}{2}\mmaSup{(\mmaFrac{d}{\mmaLoc{\(\alpha\)}})}{2}+\mmaSup{(\mmaFrac{b}{Ns})}{2}];
+  a[Ct_]:= \mmaFrac{Ct}{Cs + Cw};
+  
+  Rs[Ct_]:= \mmaFrac{ \mmaLoc{\(\rho\)} ls}{b \mmaLoc{\(\delta\)}[Ct]};
+  
+  Rc[Ct_]:= \mmaFrac{\mmaLoc{\(\rho\)} lc}{d0 \mmaDef{\(\pi\)} \mmaLoc{\(\delta\)}[Ct]};
+  
+  (* Resistance of solder joint as a function of frequency - 
+  the 0.003 is the DC resistance of a typical solder joint 
+  between shield and coil, however this can vary 
+  and is best to measure *)
+  
+  Rj[Ct_]:= 0.003 Sqrt[\mmaFrac{\mmaLoc{\(\omega\)0}[Ct] }{2\mmaDef{\(\pi\)} \mmaSup{10}{5}}] \mmaDef{\(\Omega\)};
+  
+  (* Q calculations *)
+  XLc[Ct_]:= \mmaLoc{\(\omega\)0}[Ct ]LC;
+  XCc[Ct_]:= \mmaFrac{1}{\mmaLoc{\(\omega\)0}[Ct] Cc};
+  Xct[Ct_]:= \mmaFrac{1}{\mmaLoc{\(\omega\)0}[Ct] Ct};
+  Xcw[Ct_]:= \mmaFrac{1}{\mmaLoc{\(\omega\)0}[Ct] Cw};
+  XCs[Ct_]:= \mmaFrac{1}{\mmaLoc{\(\omega\)0}[Ct] Cs};
+  
+  Zcoil[Ct_]:= \mmaSup{(\mmaFrac{1}{(\mmaDef{i} XLc[Ct]+Rc[Ct])}+\mmaFrac{1}{\mmaFrac{1}{\mmaDef{i}} XCc[Ct]})}{-1};
+  
+  ZE[Ct_]:= \mmaSup{(\mmaFrac{1}{(\mmaFrac{1}{\mmaDef{i}} Xct[Ct]+Rt[Ct])}+\mmaFrac{1}{\mmaFrac{1}{\mmaDef{i}} Xcw[Ct]}+\mmaFrac{1}{\mmaFrac{1}{\mmaDef{i}}XCs[Ct]})}{-1};
+  
+  Ztot[Ct_]:= Zcoil[Ct] + ZE[Ct] + Rs[Ct] + Rj[Ct];
+  
+  RealZ[Ct_]:= \mmaFrac{Rc[Ct] \mmaSup{XCc[Ct]}{2}}{\mmaSup{Rc[Ct]}{2}+\mmaSup{(XCc[Ct]-XLc[Ct])}{2}} +
+  
+  \mmaFrac{Rt \mmaSup{XCs[Ct]}{2} \mmaSup{Xcw[Ct]}{2}}{\mmaSup{Rt}{2}\mmaSup{(XCs[Ct]+Xcw[Ct])}{2}+\mmaSup{(XCs[Ct](Xct[Ct]+Xcw[Ct])+Xct[Ct]Xcw[Ct])}{2}}
+  
+  + Rs[Ct] + Rj[Ct];
+  
+  Q[Ct_]:= \mmaFrac{LC \mmaLoc{\(\omega\)0}[Ct]}{RealZ[Ct]};
+  
+  Return@Q[Capacitance];
+]
+\end{mmaCell}
+
+\begin{mmaCell}[moredefined={contourData, calculateQ},morefunctionlocal={d},morepattern={\#}]{Input}
+SetDirectory[NotebookDirectory[]];
+contourData = Table[
+  \{\mmaFnc{\(\gamma\)}, d, calculateQ[d,\mmaFnc{\(\gamma\)}]\},
+  \{d, 15, 25, 0.01\},
+  \{\mmaFnc{\(\gamma\)}, 0.4, 0.7, 0.01\}
+] // Flatten[#,1]&;
+  
+ListContourPlot[
+  contourData,
+  PlotLegends \(\to\) Automatic,
+  FrameLabel \(\to\) \{"d/D", "d, mm"\}
+]
+\end{mmaCell}
+
+\begin{mmaCell}[moredefined={calculateQ}]{Input}
+(* Final parameters *)
+calculateQ[19, 0.55]
+\end{mmaCell}
+
+\begin{mmaCell}{Print}
+b = 38.7273mm
+\end{mmaCell}
+\begin{mmaCell}{Print}
+d = 19mm
+\end{mmaCell}
+\begin{mmaCell}{Print}
+D = 34.5455mm
+\end{mmaCell}
+\begin{mmaCell}{Print}
+N = 9.93007
+\end{mmaCell}
+\begin{mmaCell}{Print}
+\(\omega\) = 39.7919MHz
+\end{mmaCell}
+\begin{mmaCell}{Output}
+362.188
+\end{mmaCell}
