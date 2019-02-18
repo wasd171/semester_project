@@ -1,4 +1,5 @@
 \chapter{Mathematica code for Siverns' model}
+\label{chapter:siverns_code}
 Following calculations are heavily based on a script generously provided by James David Siverns. All variables and references correspond to \cite{Siverns2012}.
 \begin{mmaCell}[addtoindex=-3,moredefined={MHz, pF, mm, m, H}]{Input}
 (* Units and constants *)
@@ -71,9 +72,9 @@ calculateQ[dMillimeters_, \mmaPat{\(\gamma\)_}]:=Module[\{
   log["\(\omega\) = ", \mmaLoc{\(\omega\)Res}[Capacitance]/(2\mmaDef{\(\pi\)} MHz), "MHz"];
   
   \mmaLoc{\(\omega\)0}[Ct_]:= 2\mmaDef{\(\pi\)}*40 MHz; (* This is a target frequency *)
-  (* Allowing 5% accuracy for the frequency *)
+  (* Allowing 15% accuracy for the frequency *)
   If[
-  	\mmaFrac{Abs[\mmaLoc{\(\omega\)0}[Capacitance] - \mmaLoc{\(\omega\)Res}[Capacitance]]}{\mmaLoc{\(\omega\)0}[Capacitance]} > 0.05, 
+  	\mmaFrac{Abs[\mmaLoc{\(\omega\)0}[Capacitance] - \mmaLoc{\(\omega\)Res}[Capacitance]]}{\mmaLoc{\(\omega\)0}[Capacitance]} > 0.15, 
   	Return@0
   ];
   
