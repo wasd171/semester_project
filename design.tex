@@ -1,9 +1,58 @@
 \chapter{Design}
+This chapter provides a representation of efforts one must face to make a jump from dry theoretical models to a virtually real product.
 
 \section{On a quest to perfect parameters}
+Our journey begins with a necessity to define restrictions of the problem. Intended environment would be a 4K cryogenic chamber (figure \ref{fig:4K_chamber}), which imposes dimensions restrictions. Ion trap requires a defined frequency for successful confinement of ions and has a capacitance. Summarized restrictions can be found in the table \ref{tbl:restrictions}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| l | r |}
+	\hline
+	Parameter & Value \\
+	\hline \hline
+	$L_{max}$ & 60 mm \\
+	\hline
+	$\omega_0$ & 40 MHz \\
+	\hline
+	$C_{trap}$ & 10--20 pF \\
+	\hline
+\end{tabular}	
+\caption{Restrictions of a system}
+\label{tbl:restrictions}
+\end{table}
 
 \subsection{First iteration}
+Siverns' model \cite{Siverns2012} is dependent on outcomes from Macalpine's model \cite{Macalpine2000} thus one needs to find these beforehand. Exact value of a trap's capacitance is unknown at the moment of calculations so it was decided to use and compare values from a following set of capacitances: $C_{trap} = [10, 15, 20]\text{ pF}$. Modified Macalpine's model found in the appendix \ref{chapter:macalpine_code} also predicts resonant frequency fix when connecting a capacitor. Unloaded frequency needed to be varied until loaded frequency equals target frequency. Results are provided in the table \ref{tbl:macalpine}, naming is consistent with \cite{Macalpine2000}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| l | r | r | r |}
+	\hline
+	Parameter & \multicolumn{3}{r |}{Value} \\
+	\hline \hline
+	$C_{trap}$, pF & 10 & 15 & 20 \\
+	\hline
+	$B$, mm (length of a shield) & \multicolumn{3}{r |}{60.0} \\
+	\hline
+	$D$, mm (diameter of a shield) & \multicolumn{3}{r |}{45.0} \\
+	\hline
+	$b$, mm (length of a coil) & \multicolumn{3}{r |}{37.1} \\
+	\hline
+	$N_{t}$ (number of turns) & 11.0 & 9.2 & 8.1 \\
+	\hline
+	$d_0$, mm (diameter of a wire) & 1.7 & 2.0 & 2.3 \\
+	\hline
+	$\tau$, mm (pitch of a helix) & 3.4 & 4.0 & 4.6 \\
+	\hline
+	$f_0$, MHz (unloaded frequency) & 97.0 & 116.0 & 132.8 \\
+	\hline
+	$Q$ (unloaded quality factor) & 873.2 & 954.8 & 1022.4 \\
+	\hline
+\end{tabular}
+\caption{Joint output of the appendix \ref{chapter:macalpine_code}}
+\label{tbl:macalpine}
+\end{table}
 
 \subsection{Precise fit}
 
-\section{Real-world implementation}
+\section{Shining in 3D}
