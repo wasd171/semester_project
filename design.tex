@@ -54,7 +54,7 @@ Siverns' model \cite{Siverns2012} is dependent on outcomes from Macalpine's mode
 \end{table}
 
 \subsection{Precise fit}
-After defining an approximate region of our interest we can proceed to calculations utilizing Siverns' model \cite{Siverns2012} with implementation provided in the appendix \ref{chapter:siverns_code}. Volume requirements were also better clarified making the goal to get the best quality factor by varying coil's parameters. Updated restrictions can be found in the table \ref{tbl:restrictions_siverns}. One could argue that all values of $d_0$ are lower than recommended in \cite{Siverns2012} thickness of 5 mm. This is true and additional measures to handle it can be found in the section X.
+After defining an approximate region of our interest we can proceed to calculations utilizing Siverns' model \cite{Siverns2012} with implementation provided in the appendix \ref{chapter:siverns_code}. Volume requirements were also better clarified making the goal to get the best quality factor by varying coil's parameters. Updated restrictions can be found in the table \ref{tbl:restrictions_siverns}. One could argue that all values of $d_0$ are lower than recommended in \cite{Siverns2012} thickness of 5 mm. This is true and additional measures to handle it can be found in the section \ref{subsection:helix_support}.
 
 \begin{table}[h]
 \centering
@@ -123,3 +123,147 @@ Fixed values of the table \ref{tbl:restrictions_siverns} allow us to independent
 \end{table}
 
 \section{Shining in 3D}
+With all dimensions in our hands we can start implementing them in something to become a real-world resonator later. This section provides an overview of all parts used, their features and reasonings.
+\clearpage
+\subsection{Bottom cap}
+\label{subsection:cap_bottom}
+Bottom cap as displayed in the figure \ref{fig:cap_bottom} features:
+\begin{itemize}
+	\item output hole for the helix (\ref{subsection:helix})
+	\item 4xM4 clearance holes to connect to the shield (\ref{subsection:shield})
+	\item 2xM2 thread holes for a SMA connector for the helix (\ref{subsection:helix})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/cap_bottom}
+	\caption{3D model of a bottom cap}
+	\label{fig:cap_bottom}
+\end{figure}
+
+\clearpage
+\subsection{Shield}
+\label{subsection:shield}
+Shield as displayed in the figure \ref{fig:shield} features:
+\begin{itemize}
+	\item 4xM4 thread holes to connect to the top cap (\ref{subsection:cap_top})
+	\item 4xM4 thread holes to connect to the 4K chamber (figure \ref{fig:4K_chamber})
+	\item 4xM4 thread holes to connect to the bottom cap (\ref{subsection:cap_bottom})
+	\item 12x ventilation holes for M4 thread holes
+	\item hole for the helix connection (\ref{subsection:helix})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/shield}
+	\caption{3D model of a shield}
+	\label{fig:shield}
+\end{figure}
+
+\clearpage
+\subsection{Helix}
+\label{subsection:helix}
+Helix as displayed in the figure \ref{fig:helix} features:
+\begin{itemize}
+	\item end connecting to the shield (\ref{subsection:shield})
+	\item end connecting to a SMA on the bottom cap (\ref{subsection:cap_bottom})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/coil}
+	\caption{3D model of a helix}
+	\label{fig:helix}
+\end{figure}
+
+\clearpage
+\subsection{Helix support}
+\label{subsection:helix_support}
+Since $d_0$ as specified in the table \ref{tbl:final_parameters} is smaller than recommended thickness of 5 mm the question of mechanical stability arises. In order to eliminate potential mechanical oscillations we introduce a helix support made of MACOR to be inserted inside the helix (\ref{subsection:helix}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/coil_support}
+	\caption{3D model of a helix support}
+	\label{fig:helix_support}
+\end{figure}
+
+\clearpage
+\subsection{Top cap}
+\label{subsection:cap_top}
+Top cap as displayed in the figure \ref{fig:cap_top} features:
+\begin{itemize}
+	\item 4xM4 clearance holes to connect to the shield (\ref{subsection:shield})
+	\item 4xM2 thread holes to connect to the top cap clamp (\ref{subsection:cap_top_clamp})
+	\item tight hole for an antenna mount (\ref{subsection:antenna_mount})
+	\item angular scale for an antenna mount (\ref{subsection:antenna_mount})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/cap_top}
+	\caption{3D model of a top cap}
+	\label{fig:cap_top}
+\end{figure}
+
+\clearpage
+\subsection{Top cap clamp}
+\label{subsection:cap_top_clamp}
+Top cap clamp as displayed in the figure \ref{fig:cap_top_clamp} features:
+\begin{itemize}
+	\item 4xM2 clearance holes to connect to the top cap (\ref{subsection:cap_top})
+	\item truncated semicircle to clamp an antenna mount (\ref{subsection:antenna_mount})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/cap_top_movable}
+	\caption{3D model of a top cap clamp}
+	\label{fig:cap_top_clamp}
+\end{figure}
+
+\clearpage
+\subsection{Antenna mount}
+\label{subsection:antenna_mount}
+Antenna mount as displayed in the figure \ref{fig:antenna_mount} features:
+\begin{itemize}
+	\item 2xM2 thread holes for a SMA connector for the antenna (\ref{subsection:antenna})
+	\item hole for the antenna (\ref{subsection:antenna})
+	\item cut for a precise usage of the angular scale on the top cap (\ref{subsection:cap_top})
+	\item 1 mm period cuts to determine the distance to the top cap (\ref{subsection:cap_top})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/antenna_mount}
+	\caption{3D model of an antenna mount}
+	\label{fig:antenna_mount}
+\end{figure}
+
+\clearpage
+\subsection{Antenna}
+\label{subsection:antenna}
+Antenna as displayed in the figure \ref{fig:antenna} features:
+\begin{itemize}
+	\item end connecting to a SMA on the antenna mount (\ref{subsection:antenna_mount})
+	\item end soldered to the bottom of the antenna mount (\ref{subsection:antenna_mount})
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/antenna}
+	\caption{3D model of an antenna}
+	\label{fig:antenna}
+\end{figure}
+
+\clearpage
+\subsection{RF resonator}
+\label{subsection:rf_resonator_3d}
+Assembly of the RF resonator is shown on the figure \ref{fig:resonator}. Every part is produced of an oxygen-free copper. Colors are adjusted for a better perception.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/resonator}
+	\caption{3D model of an RF resonator}
+	\label{fig:resonator}
+\end{figure}
