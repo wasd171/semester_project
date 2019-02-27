@@ -50,7 +50,7 @@ Helical resonators are commonly selected to be coupled with ion traps due to the
 	\caption{Example of a parallel RLC circuit}
 \end{figure}
 
-RLC amplifiers are a convenient choice for space-bounded environments, such as cryostats. Typical implementation pumps energy between two reactive components --- inductor and capacitor. Assembly of RLC circuit is easier than of helical resonator since the physical placement of lumped parts does not influence the resulting quality factor. But it also means that the quality of these components is a major factor for successful creation. Given that units' data sheets rarely provide values for cryogenic setup it takes a lot of trial and error to find the right ones \cite{Gandolfi2010}.
+RLC amplifiers are a convenient choice for space-bounded environments, such as cryostats. Typical implementation pumps energy between two reactive components --- inductor and capacitor. Assembly of RLC circuit is easier than of helical resonator since the physical placement of lumped parts does not influence the resulting quality factor. But it also means that the quality of these components is a major factor for successful creation. Given that units' data sheets rarely provide values for cryogenic or vacuum setup it takes a lot of trial and error to find the right ones \cite{Gandolfi2010}.
 \subsection{Crystal}
 Unlike helical and RLC resonators, the crystal oscillators do not store energy just in the electric field. This type or resonator utilizes piezoelectric effect to transform applied harmonic voltage into surface mechanical modes and vice versa.
 
@@ -60,6 +60,46 @@ Narrow excitation spectrum is provided by physical dimensions imposing hard cons
 	\item limited stability of the crystal does not allow high voltages
 \end{itemize}
 \subsection{Choosing the right one}
+Summarizing constraints for a resonator within the cryostat:
+\begin{itemize}
+	\item Helical
+	\begin{itemize}
+		\item Max voltage is limited by the size (we want to avoid electrical breakdown between the helix and the shield), generated thermal power (mainly because of the resistance of the solder joints) and the thickness of the coil wire,
+		\item Max frequency is limited by the manufacturing complexity --- high frequencies in small resonators require the coil to be produced from a very thin wire,  
+		\item Resonant frequency tunability depends on the exact design, is typically crude and is achieved by varying capacitive or inductive coupling between the helix and the antenna. 
+	\end{itemize}
+	\item RLC
+	\begin{itemize}
+		\item Max voltage is limited by the quality of components used and generated thermal power,
+		\item Max frequency is limited by the quality of components used,  
+		\item Resonant frequency can be fine-tuned by using variable electrical components.  
+	\end{itemize}
+	\item Crystal
+	\begin{itemize}
+		\item Max voltage is limited by the mechanical stability of the crystal,
+		\item Max frequency --- no information,  
+		\item Resonant frequency is almost fixed.  
+	\end{itemize}
+\end{itemize}
+
+Table \ref{tbl:compare_resonators} gives a more visual explanation of above.
+\begin{table}[h]
+\centering
+\begin{tabular}{| l | r | r | r |}
+	\hline
+	Type & Max voltage & Max frequency & Tunability \\
+	\hline \hline
+	Helical & +++ & +++ & ++ \\
+	\hline
+	RLC & ++ & ++ & +++ \\
+	\hline
+	Crystal & + & ? & + \\
+	\hline
+\end{tabular}
+\caption{Empirical interrelation between parameters of different types of resonators}
+\label{tbl:compare_resonators}
+\end{table}
+
 In our setup, the combination of high voltage and frequency values with our constraints on available space makes helical resonator the optimal option. However, difficulties of assembly do not make it a perfect solution in terms of scalability --- for a production-grade setup RLC amplifier might be preferred.
 
 \begin{figure}[h]
