@@ -2,32 +2,32 @@
 \newcommand{\package}{\emph}
 
 \chapter{Introduction}
-Quantum computing is an exciting and rapidly evolving field of modern science. One of the most promising implementations of a quantum computer is based on the ability to control and measure systems of trapped ions. Those ions are typically confined in Paul (RF) \cite{Paul1990} traps by applying static and oscillating RF signals to the trap electrodes, which on average generates a confining electric potential.
+Quantum computing is an exciting and rapidly evolving field of modern science. One of the most promising implementations of a quantum computer is based on the ability to control and measure systems of trapped ions. Those ions are typically confined in Paul (RF) \cite{Paul1990} traps by applying static and oscillating RF signals to the trap electrodes, which on average generate a confining electric potential.
 \section{Why do we need resonators?}
 \label{sec:why_resonators}
-One could potentially couple a radio frequency source directly to an ions' trap. However this creates the following challenges:
+One could potentially couple a radio frequency source directly to an ion's trap. However this creates the following challenges:
 \begin{itemize}
-	\item noise from a source may contribute to heating of trapped ions \cite{Turchette2000}
-	\item in order to maintain efficient cryostat cooling amount of generated heat within it should be minimized. In order to stabilize ions in the ion trap 	confining RF signal must have a reasonably high voltage amplitude. An RF resonator close to the signal consumption area allows to reduce the length of an actively heated (with accordance to the Joule–Lenz law \cite{Prokhorov1972}) high voltage wire.
-	\item impedance mismatch between source and trap leads to an additional dissipation of RF power
+	\item noise from the source may contribute to heating of trapped ions \cite{Turchette2000},
+	\item in order to maintain efficient cryostat cooling the amount of generated heat within it should be minimized. In order to stabilize ions in the ion trap the 	confining RF signal must have a reasonably high voltage amplitude. An RF resonator close to the signal consumption area allows to reduce the length of an actively heated (with accordance to the Joule–Lenz law \cite{Prokhorov1972}) high voltage wire,
+	\item impedance mismatch between source and trap leads to an additional dissipation of RF power.
 \end{itemize}
-These issues can be avoided by placing an amplifier close to the Paul trap, which would filter the incoming signal and output it with a voltage suitable for operating the trap. There are two available options: active and passive amplifiers. Core difference between them is that active amplifiers require an additional power source to function while passive amplifiers can be used solely with a source signal itself. 
+These issues can be avoided by placing an amplifier close to the Paul trap, which would filter the incoming signal and output it with a voltage suitable for operating the trap. There are two available options: active and passive amplifiers. The core difference between them is that active amplifiers require an additional power source to function while passive amplifiers can be used solely with a source signal itself. 
 
-Active amplifiers perform better in terms of a voltage gain at room temperatures. However aim of this project is to create a resonator used within a cryogenic environment. Properties of transistors powering active amplifiers depend heavily on a combination of densities of free electrons and holes. Lowering the temperature tends to reduce \cite{Dirac1926} these densities significantly, turning semiconductors at room temperatures into practically dielectrics. 
+Active amplifiers perform better in terms of voltage gain at room temperatures. However, the aim of this project is to create a resonator used within a cryogenic environment. The properties of transistors powering active amplifiers depend heavily on a combination of densities of free electrons and holes. Lowering the temperature tends to reduce \cite{Dirac1926} these densities significantly, turning semiconductors at room temperatures into practically dielectrics. 
 
 It leaves us with passive amplifiers (resonators).
 \section{Context of this project}
 \label{sec:context}
 This semester project aims to be a part of an attempt to create a scalable quantum computing architecture by Chiara Decaroli. It provides the following benefits compared to existing solutions:
 \begin{itemize}
-	\item using subtractive laser writing to manufacture wafers eliminates misalignment effects by allowing a ``self assembly'' of different wafers
-	\item double junction ion trap designed for parallel operations, Decoherence Free Subspace (DFS) ion transport across the junctions, and manipulation of long chains of ions
-	\item potential integrated laser delivery through optical lensed fibers eliminates the need for bulky optics and custom objectives which limit scalability
+	\item using subtractive laser writing to manufacture wafers eliminates misalignment effects by allowing a ``self assembly'' of different wafers,
+	\item double junction ion trap designed for parallel operations, Decoherence Free Subspace (DFS) ion transport across the junctions, and manipulation of long chains of ions,
+	\item potential integrated laser delivery through optical lensed fibers eliminates the need for bulky optics and custom objectives which limit scalability.
 \end{itemize}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.99\textwidth]{images/trap}
+	\includegraphics[width=.9\textwidth]{images/trap}
 	\caption{Ion trap overview (should be improved, just filling space now)}
 \end{figure}
 
@@ -42,7 +42,7 @@ The required frequency of 40 MHz limits our selection to the following types of 
 	\label{fig:helical_example}
 \end{figure}
 
-Helical resonators are commonly selected to be coupled with ion traps due to their high quality factors and ability to operate on high frequencies. It is a perfect option for ion traps operated at room temperatures, since in absence of space constraints they are able to provide $Q$ values of a couple thousands. However in order to achieve those $Q$, the fabrication process needs to be quite precise to avoid reflections of traveling waves which negatively influence the overall gain.
+Helical resonators are commonly selected to be coupled with ion traps due to their high quality factors and ability to operate on high frequencies. It is a perfect option for ion traps operated at room temperatures, since in absence of space constraints they are able to provide $Q$ values of a couple of thousands. However in order to achieve those $Q$, the fabrication process needs to be quite precise to avoid reflections of traveling waves which negatively influence the overall gain.
 \subsection{RLC}
 \begin{figure}[h]
 	\centering
@@ -64,6 +64,6 @@ In our setup, the combination of high voltage and frequency values with our cons
 
 \begin{figure}[h]
 	\includegraphics[width=\textwidth]{images/4K_chamber}
-	\caption{3D model of a 4K cryostat chamber}
+	\caption{3D model of the 4K cryostat chamber}
 	\label{fig:4K_chamber}
 \end{figure}

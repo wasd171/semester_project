@@ -2,7 +2,7 @@
 This chapter provides a representation of efforts one must face to make a jump from dry theoretical models to a virtually real product.
 
 \section{On a quest to perfect parameters}
-Our journey begins with a necessity to define restrictions of the problem. Intended environment would be a 4K cryogenic chamber (figure \ref{fig:4K_chamber}), which imposes dimensions restrictions. Ion trap requires a defined frequency for successful confinement of ions and has a capacitance. Summarized restrictions can be found in the table \ref{tbl:restrictions}.
+Our journey begins with a necessity to define restrictions of the problem. The intended environment would be a 4K cryogenic chamber (figure \ref{fig:4K_chamber}), which imposes dimensions restrictions. The ion trap requires a defined frequency for successful confinement of ions and has a capacitance. Summarized restrictions can be found in table \ref{tbl:restrictions}.
 
 \begin{table}[h]
 \centering
@@ -22,7 +22,7 @@ Our journey begins with a necessity to define restrictions of the problem. Inten
 \end{table}
 
 \subsection{First iteration}
-Siverns' model \cite{Siverns2012} is dependent on outcomes from Macalpine's model \cite{Macalpine2000} thus one needs to find these beforehand. Exact value of a trap's capacitance is unknown at the moment of calculations so it was decided to use and compare values from a following set of capacitances: $C_{trap} = [10, 15, 20]\text{ pF}$. Modified Macalpine's model found in the appendix \ref{chapter:macalpine_code} also predicts resonant frequency fix when connecting a capacitor. Unloaded frequency needed to be varied until loaded frequency equals target frequency. Results are provided in the table \ref{tbl:macalpine}, naming is consistent with \cite{Macalpine2000}.
+Siverns' model \cite{Siverns2012} is dependent on outcomes from Macalpine's model \cite{Macalpine2000} thus one needs to find these beforehand. Exact value of a trap's capacitance is unknown at the moment of calculations so it was decided to use and compare values from a following set of capacitances: $C_{trap} = [10, 15, 20]\text{ pF}$. The modified Macalpine's model, found in the appendix \ref{chapter:macalpine_code}, also predicts resonant frequency shift when connecting a capacitor. The unloaded frequency needed to be varied until the loaded frequency equals target frequency. Results are provided in table \ref{tbl:macalpine}, naming is consistent with \cite{Macalpine2000}.
 
 \begin{table}[h]
 \centering
@@ -54,7 +54,7 @@ Siverns' model \cite{Siverns2012} is dependent on outcomes from Macalpine's mode
 \end{table}
 
 \subsection{Precise fit}
-After defining an approximate region of our interest we can proceed to calculations utilizing Siverns' model \cite{Siverns2012} with implementation provided in the appendix \ref{chapter:siverns_code}. Volume requirements were also better clarified making the goal to get the best quality factor by varying coil's parameters. Updated restrictions can be found in the table \ref{tbl:restrictions_siverns}. One could argue that all values of $d_0$ are lower than recommended in \cite{Siverns2012} thickness of 5 mm. This is true and additional measures to handle it can be found in the section \ref{subsection:helix_support}.
+After defining an approximate region of interest we can proceed to calculations utilizing Siverns' model \cite{Siverns2012} with implementation provided in the appendix \ref{chapter:siverns_code}. Volume requirements were also better clarified with the goal to get the best quality factor by varying coil's parameters. Updated restrictions can be found in the table \ref{tbl:restrictions_siverns}. One could argue that all values of $d_0$ are lower than the recommended in \cite{Siverns2012} thickness of 5 mm. This is true and additional measures to handle it can be found in section \ref{subsection:helix_support}.
 
 \begin{table}[h]
 \centering
@@ -77,7 +77,7 @@ After defining an approximate region of our interest we can proceed to calculati
 \label{tbl:restrictions_siverns}
 \end{table}
 
-Fixed values of the table \ref{tbl:restrictions_siverns} allow us to independently change 2 remaining parameters --- diameter of a shield and diameter of a coil. Appendix's \ref{chapter:siverns_code} output of $Q$ values is provided in the figures \ref{fig:q_plot_10}, \ref{fig:q_plot_15}, \ref{fig:q_plot_20}. By selecting a point in a $\{d, \gamma = d / D\}$ space that maximizes $Q$ for a set of $C_{trap}$ values we get final parameters of an RF resonator as defined in the table \ref{tbl:final_parameters}.
+Fixed values of the table \ref{tbl:restrictions_siverns} allow us to independently change 2 remaining parameters --- diameter of a shield and diameter of a coil. Appendix's \ref{chapter:siverns_code} output of $Q$ values is provided in the figures \ref{fig:q_plot_10}, \ref{fig:q_plot_15}, \ref{fig:q_plot_20}. By selecting a point in a $\{d, \gamma = d / D\}$ space that maximizes $Q$ for a set of $C_{trap}$ values we get final parameters for our RF resonator as defined in the table \ref{tbl:final_parameters}.
 \clearpage
 \begin{figure}[!h]
 \centering
@@ -122,8 +122,21 @@ Fixed values of the table \ref{tbl:restrictions_siverns} allow us to independent
 \label{tbl:final_parameters}
 \end{table}
 
-\section{Shining in 3D}
-With all dimensions in our hands we can start implementing them in something to become a real-world resonator later. This section provides an overview of all parts used, their features and reasonings.
+\section{Shaping the 3D model}
+With all dimensions in our hands we can start implementing them in a 3D design for the workshop. This section provides an overview of all parts used, their features and reasonings.
+
+\clearpage
+\subsection{RF resonator}
+\label{subsection:rf_resonator_3d}
+Assembly of the RF resonator is shown on the figure \ref{fig:resonator}. Every part is produced from oxygen-free copper. Colors are adjusted for a better perception.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/resonator}
+	\caption{3D model of an RF resonator}
+	\label{fig:resonator}
+\end{figure}
+
 \clearpage
 \subsection{Bottom cap}
 \label{subsection:cap_bottom}
@@ -149,7 +162,7 @@ Shield as displayed in the figure \ref{fig:shield} features:
 	\item 4xM4 thread holes to connect to the top cap (\ref{subsection:cap_top})
 	\item 4xM4 thread holes to connect to the 4K chamber (figure \ref{fig:4K_chamber})
 	\item 4xM4 thread holes to connect to the bottom cap (\ref{subsection:cap_bottom})
-	\item 12x ventilation holes for M4 thread holes
+	\item 12x ventilation holes for M4 thread holes to avoid the slow leakage of the remaining air between the screw and the shield into the vacuum of the cryostat	
 	\item hole for the helix connection (\ref{subsection:helix})
 \end{itemize}
 
@@ -165,8 +178,8 @@ Shield as displayed in the figure \ref{fig:shield} features:
 \label{subsection:helix}
 Helix as displayed in the figure \ref{fig:helix} features:
 \begin{itemize}
-	\item end connecting to the shield (\ref{subsection:shield})
-	\item end connecting to a SMA on the bottom cap (\ref{subsection:cap_bottom})
+	\item end soldered to the shield (\ref{subsection:shield})
+	\item end soldered to a SMA on the bottom cap (\ref{subsection:cap_bottom})
 \end{itemize}
 
 \begin{figure}[h]
@@ -179,7 +192,7 @@ Helix as displayed in the figure \ref{fig:helix} features:
 \clearpage
 \subsection{Helix support}
 \label{subsection:helix_support}
-Since $d_0$ as specified in the table \ref{tbl:final_parameters} is smaller than recommended thickness of 5 mm the question of mechanical stability arises. In order to eliminate potential mechanical oscillations we introduce a helix support made of MACOR to be inserted inside the helix (\ref{subsection:helix}).
+Since $d_0$ as specified in the table \ref{tbl:final_parameters} is smaller than recommended thickness of 5 mm the question of mechanical stability arises. In order to eliminate potential mechanical oscillations we introduce a helix support made of PEEK to be inserted inside of the helix (\ref{subsection:helix}). PEEK was selected as a cryogenic compatible insulator thus minimizing its influence on the helix's inductivity.
 
 \begin{figure}[h]
 	\centering
@@ -247,6 +260,7 @@ Antenna as displayed in the figure \ref{fig:antenna} features:
 \begin{itemize}
 	\item end connecting to a SMA on the antenna mount (\ref{subsection:antenna_mount})
 	\item end soldered to the bottom of the antenna mount (\ref{subsection:antenna_mount})
+	\item using empirical estimation from \cite{Siverns2012} a diameter of 11 mm was selected
 \end{itemize}
 
 \begin{figure}[h]
@@ -254,16 +268,4 @@ Antenna as displayed in the figure \ref{fig:antenna} features:
 	\includegraphics[width=\textwidth]{images/antenna}
 	\caption{3D model of an antenna}
 	\label{fig:antenna}
-\end{figure}
-
-\clearpage
-\subsection{RF resonator}
-\label{subsection:rf_resonator_3d}
-Assembly of the RF resonator is shown on the figure \ref{fig:resonator}. Every part is produced of an oxygen-free copper. Colors are adjusted for a better perception.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{images/resonator}
-	\caption{3D model of an RF resonator}
-	\label{fig:resonator}
 \end{figure}
