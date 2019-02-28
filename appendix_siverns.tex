@@ -91,7 +91,6 @@ calculateQ[dMillimeters_, \mmaPat{\(\gamma\)_}]:=Module[\{
   
   (* Distance of current path in the shield - equation 32 *)
   ls = Ns Sqrt[\mmaSup{\mmaDef{\(\pi\)}}{2}\mmaSup{(\mmaFrac{d}{\mmaLoc{\(\alpha\)}})}{2}+\mmaSup{(\mmaFrac{b}{Ns})}{2}];
-  a[Ct_]:= \mmaFrac{Ct}{Cs + Cw};
   
   Rs[Ct_]:= \mmaFrac{ \mmaLoc{\(\rho\)} ls}{b \mmaLoc{\(\delta\)}[Ct]};
   
