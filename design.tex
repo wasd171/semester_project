@@ -1,5 +1,5 @@
 \chapter{Design}
-This chapter provides a representation of efforts one must face to make a jump from dry theoretical models to a virtually real product.
+This chapter provides a representation of efforts one must face to make a jump from dry theoretical models to a virtually real device.
 
 \section{On a quest to perfect parameters}
 Our journey begins with a necessity to define restrictions of the problem. The intended environment would be a 4K cryogenic chamber (figure \ref{fig:4K_chamber}), which imposes dimensions restrictions. The ion trap requires a defined frequency for successful confinement of ions and has a capacitance. Summarized restrictions can be found in table \ref{tbl:restrictions}.
@@ -73,12 +73,19 @@ After defining an approximate region of interest we can proceed to calculations 
 	\hline
 	$\tau$, mm (pitch of a helix) & 3.4 & 4.0 & 4.6 \\
 	\hline
+	$\omega_0$, MHz (resonator frequency) & 44.6 & 45.6 & 46.9 \\
+	\hline
+	$Q$ & 418 & 360 & 311  \\
+	\hline
 \end{tabular}
 \caption{Restrictions for the Siverns' model}
 \label{tbl:restrictions_siverns}
 \end{table}
 
 Fixed values of the table \ref{tbl:restrictions_siverns} allow us to independently change 2 remaining parameters --- diameter of a shield and diameter of a coil. Appendix's \ref{chapter:siverns_code} output of $Q$ values is provided in the figures \ref{fig:q_plot_10}, \ref{fig:q_plot_15}, \ref{fig:q_plot_20}. By selecting a point in a $\{d, \gamma = d / D\}$ space that maximizes $Q$ for a set of $C_{trap}$ values we get final parameters for our RF resonator as defined in the table \ref{tbl:final_parameters}.
+
+Since selected dimensional parameters in the table \ref{tbl:final_parameters} correspond to those of $C_{trap} = 10$ pF we would expect the unloaded frequency $f_0$ and the unloaded $Q$ to be equal to ones mentioned in the table \ref{tbl:macalpine}.
+
 \FloatBarrier
 \begin{figure}[h!]
 \centering
@@ -125,23 +132,20 @@ Fixed values of the table \ref{tbl:restrictions_siverns} allow us to independent
 \end{table}
 
 \section{Shaping the 3D model}
-With all dimensions in our hands we can start implementing them in a 3D design for the workshop. This section provides an overview of all parts used, their features and reasonings.
+\label{sec:shaping}
+With all dimensions in our hands we can start implementing them in a 3D design for the workshop. This section provides an overview of all parts used, their features and reasonings. One important feature to notice beforehand is the tunability. With the resonator as small as ours the chances that manufacturing complications would shift the target frequency further are rather high. In order to be able to vary it precisely the angular scale on the top cap (\ref{subsection:cap_top}) and the linear scale on the antenna mount (\ref{subsection:antenna_mount}) were designed.
 
 \clearpage
 \subsection{RF resonator}
 \label{subsection:rf_resonator_3d}
-Assembly of the RF resonator is shown on the figure \ref{fig:resonator}. Every part is produced from oxygen-free copper. Colors are adjusted for a better perception.
+Assembly of the RF resonator is shown on the figure \ref{fig:resonator}. Every part is produced from oxygen-free copper to lower the resistivity. Colors are adjusted for a better perception.
 
 \begin{figure}[h]
 	\centering
-	\begin{tabular}{c c}
-		\includegraphics[width=.49\textwidth]{images/resonator_water_small} 
-		& 
-		\includegraphics[width=.49\textwidth]{images/resonator_XZ_small}
+	\begin{tabular}{c}
+		\includegraphics[width=.95\textwidth]{images/resonator_water_small} 
 		\\
-		\includegraphics[width=.44\textwidth]{images/resonator_XY_small} 
-		& 
-		\includegraphics[width=.44\textwidth]{images/resonator_YZ_small}
+		\includegraphics[width=.95\textwidth]{images/resonator_XY_small} 
 	\end{tabular}
 	\caption{3D model of an RF resonator}
 	\label{fig:resonator}
@@ -154,7 +158,7 @@ Bottom cap as displayed in the figure \ref{fig:cap_bottom} features:
 \begin{itemize}
 	\item output hole for the helix (\ref{subsection:helix})
 	\item 4xM4 clearance holes to connect to the shield (\ref{subsection:shield})
-	\item 2xM2 thread holes for a SMA connector for the helix (\ref{subsection:helix})
+	\item 2xM2 thread holes for a SMA connector (RND 205-00499) for the helix (\ref{subsection:helix})
 \end{itemize}
 
 \begin{figure}[h]
@@ -170,7 +174,7 @@ Bottom cap as displayed in the figure \ref{fig:cap_bottom} features:
 Shield as displayed in the figure \ref{fig:shield} features:
 \begin{itemize}
 	\item 4xM4 thread holes to connect to the top cap (\ref{subsection:cap_top})
-	\item 4xM4 thread holes to connect to the 4K chamber (figure \ref{fig:4K_chamber})
+	\item 4xM4 thread holes to connect via a copper adapter to the top cover of the 4K chamber (figure \ref{fig:4K_chamber})
 	\item 4xM4 thread holes to connect to the bottom cap (\ref{subsection:cap_bottom})
 	\item 12x ventilation holes for M4 thread holes to avoid the slow leakage of the remaining air between the screw and the shield into the vacuum of the cryostat	
 	\item hole for the helix connection (\ref{subsection:helix})
@@ -178,7 +182,7 @@ Shield as displayed in the figure \ref{fig:shield} features:
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.81\textwidth]{images/shield_small}
+	\includegraphics[width=.78\textwidth]{images/shield_small}
 	\caption{3D model of a shield}
 	\label{fig:shield}
 \end{figure}
@@ -189,7 +193,7 @@ Shield as displayed in the figure \ref{fig:shield} features:
 Helix as displayed in the figure \ref{fig:helix} features:
 \begin{itemize}
 	\item end soldered to the shield (\ref{subsection:shield})
-	\item end soldered to a SMA on the bottom cap (\ref{subsection:cap_bottom})
+	\item end soldered to a SMA (RND 205-00499) on the bottom cap (\ref{subsection:cap_bottom})
 \end{itemize}
 
 \begin{figure}[h]
@@ -219,7 +223,7 @@ Top cap as displayed in the figure \ref{fig:cap_top} features:
 	\item 4xM4 clearance holes to connect to the shield (\ref{subsection:shield})
 	\item 4xM2 thread holes to connect to the top cap clamp (\ref{subsection:cap_top_clamp})
 	\item tight hole for an antenna mount (\ref{subsection:antenna_mount})
-	\item angular scale for an antenna mount (\ref{subsection:antenna_mount})
+	\item angular scale for an antenna mount (\ref{subsection:antenna_mount}) as discussed in \ref{sec:shaping}
 \end{itemize}
 
 \begin{figure}[h]
@@ -250,15 +254,15 @@ Top cap clamp as displayed in the figure \ref{fig:cap_top_clamp} features:
 \label{subsection:antenna_mount}
 Antenna mount as displayed in the figure \ref{fig:antenna_mount} features:
 \begin{itemize}
-	\item 2xM2 thread holes for a SMA connector for the antenna (\ref{subsection:antenna})
+	\item 2xM2 thread holes for a SMA (RND 205-00499) connector for the antenna (\ref{subsection:antenna})
 	\item hole for the antenna (\ref{subsection:antenna})
 	\item cut for a precise usage of the angular scale on the top cap (\ref{subsection:cap_top})
-	\item 1 mm period cuts to determine the distance to the top cap (\ref{subsection:cap_top})
+	\item 1 mm period cuts to determine the distance to the top cap (\ref{subsection:cap_top}) as discussed in \ref{sec:shaping}
 \end{itemize}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.94\textwidth]{images/antenna_mount_small}
+	\includegraphics[width=.89\textwidth]{images/antenna_mount_small}
 	\caption{3D model of an antenna mount}
 	\label{fig:antenna_mount}
 \end{figure}
@@ -268,14 +272,14 @@ Antenna mount as displayed in the figure \ref{fig:antenna_mount} features:
 \label{subsection:antenna}
 Antenna as displayed in the figure \ref{fig:antenna} features:
 \begin{itemize}
-	\item end connecting to a SMA on the antenna mount (\ref{subsection:antenna_mount})
+	\item end connecting to a SMA (RND 205-00499) on the antenna mount (\ref{subsection:antenna_mount})
 	\item end soldered to the bottom of the antenna mount (\ref{subsection:antenna_mount})
 	\item using empirical estimation from \cite{Siverns2012} a diameter of 11 mm was selected
 \end{itemize}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.73\textwidth]{images/antenna_small}
+	\includegraphics[width=.71\textwidth]{images/antenna_small}
 	\caption{3D model of an antenna}
 	\label{fig:antenna}
 \end{figure}
