@@ -1,1 +1,97 @@
 \chapter{Validation}
+
+Two parameters defining the assembled resonator are the central frequency $\omega_0$ and the quality factor $Q$. In this chapter we measure their experimental values and compare to those defined in the table \ref{tbl:restrictions_siverns}.
+
+\section{Measurements}
+
+In order to determine $\omega_0$ and $Q$ we would take a look at the reflection spectrum of the system consisting of resonator + coaxial cable + capacitor. For every configuration the depth of the resonance was optimized by changing the distance and the angle between the antenna mount \ref{subsection:antenna_mount} and the top cap \ref{subsection:cap_top}, effectively adjusting the antenna to coil coupling. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| l | l | r | r |}
+	\hline
+	Parameter & Definition & Values & Units\\
+	\hline \hline
+	$C_{load}$ & External capacitive load & $10,15,22$ & pF\\
+	\hline
+	$L_{coax}$ & Length of the coaxial cable & $10, 20, 50$ & cm\\
+	\hline
+\end{tabular}
+\label{tbl:experimental_parameters}
+\caption{Additional experimental parameters}
+\end{table}
+
+At the time of writing there is no clear values for the capacitance of the trap and the length of the wires connecting it with the resonator. By using a set of parameters defined in the table \ref{tbl:experimental_parameters} we aim to measure $\omega_0$ and $Q$ in the region similar to the one used for the numerical calculations and broad enough to include the point $\{C_{load} = C_{trap}; L_{coax}\}$ of the final setup.
+
+\begin{itemize}
+	\item For $L_{coax}=50$ two coaxial cables were connected, introducing 2 additional SMA connectors to the contour
+	\item Available SMA connectors were of the male type. Unfortunately it is also the type commonly used for the wires, so we had to use an additional female-female adapter (+1 for $L_{coax} = 50$)
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/R_plot_C_10}
+	\label{fig:R_C_10}
+	\caption{Reflection spectrum for $C = 10$}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/R_plot_C_15}
+	\label{fig:R_C_10}
+	\caption{Reflection spectrum for $C = 15$}
+\end{figure}
+\FloatBarrier
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/R_plot_C_22}
+	\label{fig:R_C_10}
+	\caption{Reflection spectrum for $C = 22$}
+\end{figure}
+\origsection{Analysis}
+\FloatBarrier
+Finding $\omega_0$ from experimental data is trivial, it is the central frequency of the peak. For the transmission spectrum $Q$ can be defined as
+\begin{equation}
+	Q = \frac{\omega_0}{\Delta \omega},
+\end{equation}
+where $\Delta \omega$ is the width of the peak at the $1/\sqrt{2}$ height. Since we are working with the reflection spectrum we need to adjust the height using the following expression
+\begin{equation}
+	R_{1/\sqrt{2}} = 1 - \frac{1 - R_{peak}}{\sqrt{2}}.
+	\label{eq:reflection_height}
+\end{equation}
+
+Measured values of $\omega_0$ and $Q$ are presented in the table \ref{tbl:Q_w_results}. Visual comparison with the predicted values from the table \ref{tbl:restrictions_siverns} is shown in the chart \ref{fig:Q_w_deviation}. $C_{load} = 22$ pF is not equal to the simulated $C_{trap} = 20$ pF but was considered being close enough.
+\begin{table}[h]
+\centering
+\begin{tabular}{| r | r || r | r |}
+	\hline
+	$C_{load}$, pF & $L_{coax}$, cm & $\omega_0$, $2\pi*$MHz & $Q$\\
+	\hline \hline
+	10 & 10 & 44.7 & 223.5\\
+	\hline
+	10 & 20 & 36.3 & 269.9\\
+	\hline
+	10 & 50 & 22.3 & 140.4\\
+	\hline
+	15 & 10 & 40.6 & 216.5\\
+	\hline
+	15 & 20 & 33.9 & 268.6\\
+	\hline
+	15 & 50 & 21.6 & 69.7\\
+	\hline
+	22 & 10 & 36.5 & 153.5\\
+	\hline
+	22 & 20 & 31.2 & 192.3\\
+	\hline
+	22 & 50 & 20.8 & 145.6\\
+	\hline
+\end{tabular}
+\label{tbl:Q_w_results}
+\caption{Measured $Q$ and $\omega_0$ for various configurations}
+\end{table}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/Q_w_plot}
+	\label{fig:Q_w_deviation}
+	\caption{Relative deviations of $Q$ and $\omega_0$}
+\end{figure}
