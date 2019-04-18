@@ -82,6 +82,17 @@
 %% Command for an imaginary i
 \newcommand{\iu}{{i\mkern1mu}}
 
+%% Command for a ditto symbol
+\usepackage{tikz}
+\newcommand{\dittotikz}{%
+    \tikz{
+        \draw [line width=0.12ex] (-0.2ex,0) -- +(0,0.8ex)
+            (0.2ex,0) -- +(0,0.8ex);
+        \draw [line width=0.08ex] (-0.6ex,0.4ex) -- +(-1.5em,0)
+            (0.6ex,0.4ex) -- +(1.5em,0);
+    }%
+}
+
 %% Document information
 %% ====================
 
