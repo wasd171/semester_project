@@ -3,7 +3,7 @@
 Two parameters defining the assembled resonator are the central frequency $\omega_0$ and the quality factor $Q$. In this chapter we measure their experimental values and compare to those defined in the table \ref{tbl:restrictions_siverns}.
 
 \section{Measurements}
-
+\label{sec:measurements}
 In order to determine $\omega_0$ and $Q$ we would take a look at the reflection spectrum of the system consisting of resonator + coaxial cable + capacitor. For every configuration the depth of the resonance was optimized by changing the distance and the angle between the antenna mount \ref{subsection:antenna_mount} and the top cap \ref{subsection:cap_top}, effectively adjusting the antenna to coil coupling. 
 
 \begin{table}[h]
@@ -141,4 +141,34 @@ This section includes simulations of the ideal drive for a 300 and 320 V drive b
 \end{tabular}
 \label{tbl:ideal_drive}
 \caption{Fitting the experimental data into the ion trap constrains}
+\end{table}
+
+\section{Voltage gains}
+According to \cite{Leupold2015} average dissipated power $P$ can be written as
+\begin{equation}
+	P = \frac{I_0^2 R}{2} = \frac{\left(U_0 \omega_0 C\right)^2 R}{2} = \frac{U_0^2}{2 \omega_0 Q L}
+\end{equation}
+with a peak current $I_0$, peak voltage $U_0$, inductance of the resonator $L$, and capacitance of the system $C$. Since in the section \ref{sec:measurements} we made measurements with various known values of a capacitive load it is possible to give an estimation of $L = 600$ nH. By picking the values from the table \ref{tbl:ideal_drive} that are compatible with $U_0 = $ 300 or 320V we present results for the needed input power in the table \ref{tbl:input_power}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| r | r | r | r |}
+	\hline
+	$C_{load}$, pF & $L_{coax}$, cm & $U_0$, V & $P$, W\\
+	\hline \hline
+	10 & 20 & 300 & 1.20\\
+	\hline
+	10 & 20 & 320 & 1.37\\
+	\hline
+	15 & 10 & 320 & 1.53\\
+	\hline
+	15 & 20 & 300 & 1.30\\
+	\hline
+	22 & 10 & 300 & 2.11\\
+	\hline
+	22 & 10 & 320 & 2.40\\
+	\hline
+\end{tabular}
+\label{tbl:input_power}
+\caption{Estimated input power $P$ for various configurations}
 \end{table}
