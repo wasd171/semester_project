@@ -97,7 +97,7 @@ Measured values of $\omega_0$ and $Q$ are presented in the table \ref{tbl:Q_w_re
 \end{figure}
 
 \section{Ideal drive}
-This section includes simulations of the ideal drive for a 300 and 320 V drive by Chiara Decaroli.
+This section includes simulations of the ideal drive for a 300 and 320 V drive by Chiara Decaroli, figures \ref{fig:ideal_drive_300} and \ref{fig:ideal_drive_320} respectively. Let's take a look at the figure \ref{fig:ideal_drive_300}. If the resonator frequency is below $\approx 2\pi*34$ MHz the ion trap becomes unstable. On the other hand, with frequencies larger than $\approx 2\pi*39$ MHz the secular frequency of the ion itself drops below $2\pi*6$ MHz which does not allow certain quantum operations. Thus it is desired for the $\omega_0$ to below to the intersection of the white areas. We show what measured points respect this condition in the table \ref{tbl:ideal_drive}.
 
 \begin{figure}[h]
 	\centering
@@ -113,3 +113,32 @@ This section includes simulations of the ideal drive for a 300 and 320 V drive b
 	\label{fig:ideal_drive_320}
 	\caption{Simulation of the ideal drive for 320V}
 \end{figure}
+\FloatBarrier
+\begin{table}[h]
+\centering
+\begin{tabular}{| r | r | c | c |}
+	\hline
+	$C_{load}$, pF & $L_{coax}$, cm & Compatible with 300V & Compatible with 320V\\
+	\hline \hline
+	10 & 10 & \xmark & \xmark\\
+	\hline
+	10 & 20 & \cmark & \cmark\\
+	\hline
+	10 & 50 & \xmark & \xmark\\
+	\hline
+	15 & 10 & \xmark & \cmark\\
+	\hline
+	15 & 20 & \cmark & \xmark\\
+	\hline
+	15 & 50 & \xmark & \xmark\\
+	\hline
+	22 & 10 & \cmark & \cmark\\
+	\hline
+	22 & 20 & \xmark & \xmark\\
+	\hline
+	22 & 50 & \xmark & \xmark\\
+	\hline
+\end{tabular}
+\label{tbl:ideal_drive}
+\caption{Fitting the experimental data into the ion trap constrains}
+\end{table}
