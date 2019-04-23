@@ -143,8 +143,8 @@ This section includes simulations of the ideal drive for a 300 and 320 V drive b
 \caption{Fitting the experimental data into the ion trap constrains}
 \end{table}
 
-\section{Voltage gains}
-According to \cite{Leupold2015} average dissipated power $P$ can be written as
+\section{Power dissipation}
+Since the experiment would run in a cryogenic environment it is crucial to estimate the dissipated power to find out whether a cryostat should be able to handle it. According to \cite{Leupold2015} average dissipated power $P$ can be written as
 \begin{equation}
 	P = \frac{I_0^2 \, R}{2} = \frac{\left(U_0 \, \omega_0 \, C\right)^2 R}{2} = \frac{U_0^2}{2 \, \omega_0 \, Q  \, L}
 \end{equation}
@@ -172,3 +172,19 @@ with a peak current $I_0$, peak voltage $U_0$, inductance of the resonator $L$, 
 \label{tbl:input_power}
 \caption{Estimated input power $P$ for various configurations}
 \end{table}
+
+\section{Voltage gain}
+
+We would also like to know what kind of an input signal should be provided to the resonator to successfully operate an ion trap. By taking a quick look at \cite{Leupold2015} we can define the voltage gain as given by the absolute of the transfer function like the following:
+\begin{equation}
+	G(\omega) = \left| \frac{U_0(\omega)}{U_i(\omega)} \right| = \left | \frac{1/\left( \iu \omega C \right)}{R + \iu \omega L + 1/\left( \iu \omega C \right)} \right| = \frac{\omega_0^2}{\sqrt{\left( \omega^2 - \omega_0^2 \right)^2 + \left( \omega \omega_0 / Q\right)^2}}
+	\label{eq:voltage_gain}
+\end{equation}
+
+Most likely we would like to operate the trap in the resonant mode in which $\omega = \omega_0$ and thus $G = G(\omega_0) = Q$. However in some scenarios it might be beneficial to select a different frequency. In order to describe this case we have used the equation \ref{eq:voltage_gain} to plot $G(\omega)$ for all configurations from the table \ref{tbl:ideal_drive} where $\omega_0$ already belongs to the approximate desired joint interval of the $2\pi*34$ -- $2\pi*42$ MHz. Results can be seen in the figure \ref{fig:G(w)_plot}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/G(w)_plot}
+\label{fig:G(w)_plot}
+\caption{Plot of $G(\omega)$ for various configurations}
+\end{figure}
