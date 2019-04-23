@@ -1,0 +1,11 @@
+\chapter{Results}
+
+The aim of this project was to create an RF helical resonator to support an ion trap. This goal was successfully achieved. As a result we were able to design, produce, and validate a delicate helical resonator with reasonable $Q$ and $\omega_0$ values. However a watchful reader can rightfully point out that those do not correspond exactly to the predictions. Let us provide a short analysis of the potential reasons that could lead to that:
+
+\begin{itemize}
+	\item Resonance frequency is not exactly $2\pi*40$ MHz because algorithm provided in the appendix \ref{chapter:siverns_code} only allows to select values in the vicinity of the target frequency. We have used the $\pm 15\%$ frequency margin
+	\item Helical resonator has spent a fair share of time being in contact with air between production and validation phases which has led to oxidation of the copper thus effectively increasing the resistivity of the skin layer
+	\item $Q$ and $\omega_0$ were measured at the room temperature while the theoretical model has operated with the resistivity in the cryogenic environment
+	\item Calculations have not accounted for the additional capacitance and resistance introduced by the SMA connectors and external wires
+	\item Distance tuning almost didn't work, for an optimal tuning the distance between the antenna mount was kept close to 0
+\end{itemize}
